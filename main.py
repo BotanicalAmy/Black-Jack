@@ -62,6 +62,6 @@ def black_jack():
                 drawing = False
         else:
             playing = False
-            print (f"Your final hand was {user_cards}.  Your final score was {user_score}. Your opponent's final hand was {computer_cards}.  Your opponents score was {computer_score}. You {calculate_results(user_score, computer_score)}.")
+            print (f" Your final hand was {user_cards}.  Your final score was {user_score}.\n Your opponent's final hand was {computer_cards}.  Your opponents score was {computer_score}. \n You {calculate_results(user_score, computer_score)}.")
 
 black_jack()
