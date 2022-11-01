@@ -27,16 +27,11 @@ def black_jack():
     computer_cards = []
     playing = True
     print(logo)
-    play = input("Do you want to play a game of Black Jack? Type 'y' or 'n': \n")
-    if play == "n":
-        playing is not True
-        clear()
-        black_jack()
-    else:
-        deal_cards(user_cards)
-        deal_cards(user_cards)
-        deal_cards(computer_cards)
-        deal_cards(computer_cards)
+
+    deal_cards(user_cards)
+    deal_cards(user_cards)
+    deal_cards(computer_cards)
+    deal_cards(computer_cards)
         
     while playing:
         user_score = sum(user_cards)
@@ -64,4 +59,6 @@ def black_jack():
             playing = False
             print (f" Your final hand was {user_cards}.  Your final score was {user_score}.\n Your opponent's final hand was {computer_cards}.  Your opponents score was {computer_score}. \n You {calculate_results(user_score, computer_score)}.")
 
-black_jack()
+while input("Do you want to play a game of Blackjack? Type 'y' or 'n': ") == "y":
+  clear()
+  black_jack()
