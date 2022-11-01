@@ -1,0 +1,67 @@
+import random
+from replit import clear
+from art import logo
+
+def deal_cards(list):
+    cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+    list.append(random.choice(cards))
+
+def calculate_ace(list):
+    list = [x if x != 11 else 1 for x in list]
+
+def calculate_results(user, computer):
+    result = ["win", "lose", "draw"]
+    if user > 21:
+        return(result[1])
+    if computer > 21:
+        return(result[0])
+    if user > computer:
+        return(result[0])
+    if computer > user:
+        return(result[1])
+    if computer == user:
+        return(result[2])
+
+def black_jack():
+    user_cards = []
+    computer_cards = []
+    playing = True
+    print(logo)
+    play = input("Do you want to play a game of Black Jack? Type 'y' or 'n': \n")
+    if play == "n":
+        playing is not True
+        clear()
+        black_jack()
+    else:
+        deal_cards(user_cards)
+        deal_cards(user_cards)
+        deal_cards(computer_cards)
+        deal_cards(computer_cards)
+        
+    while playing:
+        user_score = sum(user_cards)
+        computer_score = sum(computer_cards)
+        if computer_score > 21:
+            playing is not True
+            return (f"Your final hand was {user_cards}.  Your final score was {user_score}. Your opponent's final hand was {computer_cards}.  Your opponents score was {computer_score}.  You {calculate_results(user_score, computer_score)}.")
+        if computer_score < 16:
+            deal_cards(computer_cards)
+            calculate_ace(computer_cards)
+            computer_score = sum(computer_cards)
+        
+        print(f"You have {user_cards}, your opponent has a {computer_cards[0]}")
+        drawing = True
+        while drawing and user_score < 21:
+            draw = input("Do you want to draw another card?  Type 'y' or 'n': ")
+            if draw == 'y':
+                deal_cards(user_cards)
+                user_score = sum(user_cards)
+                calculate_ace(user_cards)
+                print(f"Your hand is {user_cards}")
+            else:
+                drawing = False
+        else:
+            playing = False
+            print (f"Your final hand was {user_cards}.  Your final score was {user_score}. Your opponent's final hand was {computer_cards}.  Your opponents score was {computer_score}. You {calculate_results(user_score, computer_score)}.")
+
+black_jack()
