@@ -43,11 +43,6 @@ def black_jack():
     while playing:
         user_score = sum(user_cards)
         computer_score = sum(computer_cards)
-
-        #add statement for computer black jack
-        if computer_score == 21 and len(computer_cards) == 2:
-            print("Your opponent got a black jack, you lose")
-            playing = False
             
         #give the computer more cards if their score is less than 16
         while computer_score < 16:
@@ -55,14 +50,15 @@ def black_jack():
             calculate_ace(computer_cards)
             computer_score = sum(computer_cards)
         
-        print(f"You have {user_cards}, your opponent has a {computer_cards[0]}")
         drawing = True
         while drawing and user_score <= 21:
             #add statement for user black jack
             if user_score == 21 and len(user_cards) == 2:
-                print("You got a Black Jack!")
-                playing = False
+                print("You got a Blackjack!")
+                drawing = False
+            #if computer does not have black jack, offer user additional deals
             if user_score <21 and computer_score != 21:
+                print(f"You have {user_cards}, your opponent has a {computer_cards[0]}")
                 draw = input("Do you want to draw another card?  Type 'y' or 'n': ")
                 if draw == 'y':
                     deal_cards(user_cards)
@@ -73,6 +69,11 @@ def black_jack():
                     drawing = False
             else:
                 drawing = False
+        #add statement for computer black jack
+        if computer_score == 21 and len(computer_cards) == 2:
+            playing = False    
+            print(f"Your opponent had {computer_cards}, Blackjack. You lose")
+                   
         else:
             playing = False
             calculate_ace(user_cards)
