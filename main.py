@@ -35,12 +35,20 @@ def black_jack():
     #deal 2 cards to the user and computer
     deal_cards(user_cards)
     deal_cards(user_cards)
+    calculate_ace(user_cards)
     deal_cards(computer_cards)
     deal_cards(computer_cards)
+    calculate_ace(computer_cards)
         
     while playing:
         user_score = sum(user_cards)
         computer_score = sum(computer_cards)
+
+        #add statement for computer black jack
+        if computer_score == 21 and len(computer_cards) == 2:
+            print("Your opponent got a black jack, you lose")
+            playing = False
+            
         #give the computer more cards if their score is less than 16
         while computer_score < 16:
             deal_cards(computer_cards)
@@ -50,15 +58,11 @@ def black_jack():
         print(f"You have {user_cards}, your opponent has a {computer_cards[0]}")
         drawing = True
         while drawing and user_score <= 21:
-            #add statement for computer black jack
-            if computer_score == 21 and len(computer_cards) == 2:
-                print("Your opponent got a black jack")
-                drawing = False
             #add statement for user black jack
             if user_score == 21 and len(user_cards) == 2:
                 print("You got a Black Jack!")
                 playing = False
-            if user_score <21:
+            if user_score <21 and computer_score != 21:
                 draw = input("Do you want to draw another card?  Type 'y' or 'n': ")
                 if draw == 'y':
                     deal_cards(user_cards)
@@ -73,6 +77,8 @@ def black_jack():
             playing = False
             calculate_ace(user_cards)
             user_score = sum(user_cards)
+            calculate_ace(computer_cards)
+            computer_score = sum(computer_cards)
             print (f" Your final hand was {user_cards}.  Your final score was {user_score}.\n Your opponent's final hand was {computer_cards}.  Your opponents score was {computer_score}. \n You {calculate_results(user_score, computer_score)}.")
 
 while input("Do you want to play a game of Blackjack? Type 'y' or 'n': ") == "y":
