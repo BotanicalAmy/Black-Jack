@@ -11,6 +11,8 @@ def calculate_ace(list):
 
 def calculate_results(user, computer):
     result = ["win", "lose", "draw"]
+    if computer == user:
+        return(result[2])
     if user > 21:
         return(result[1])
     if computer > 21:
@@ -19,8 +21,6 @@ def calculate_results(user, computer):
         return(result[0])
     if computer > user:
         return(result[1])
-    if computer == user:
-        return(result[2])
 
 def black_jack():
     user_cards = []
@@ -36,10 +36,7 @@ def black_jack():
     while playing:
         user_score = sum(user_cards)
         computer_score = sum(computer_cards)
-        if computer_score > 21:
-            playing is not True
-            return (f"Your final hand was {user_cards}.  Your final score was {user_score}. Your opponent's final hand was {computer_cards}.  Your opponents score was {computer_score}.  You {calculate_results(user_score, computer_score)}.")
-        if computer_score < 16:
+        while computer_score < 16:
             deal_cards(computer_cards)
             calculate_ace(computer_cards)
             computer_score = sum(computer_cards)
