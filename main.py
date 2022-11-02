@@ -12,10 +12,12 @@ def calculate_ace(cards):
         cards.remove(11)
         cards.append(1)
 
-#display pretty results
+#display results as text
 def calculate_results(user, computer):
     result = ["win", "lose", "draw"]
     if computer == user:
+        return(result[2])
+    if computer > 21 and user > 21:
         return(result[2])
     if user > 21:
         return(result[1])
@@ -32,14 +34,15 @@ def black_jack():
     playing = True
     print(logo)
 
-    #deal 2 cards to the user and computer
+    #deal 2 cards to the user and computer, check for double aces
     deal_cards(user_cards)
     deal_cards(user_cards)
     calculate_ace(user_cards)
     deal_cards(computer_cards)
     deal_cards(computer_cards)
     calculate_ace(computer_cards)
-        
+
+    playing = True
     while playing:
         user_score = sum(user_cards)
         computer_score = sum(computer_cards)
@@ -51,12 +54,8 @@ def black_jack():
             computer_score = sum(computer_cards)
         
         drawing = True
-        while drawing and user_score <= 21:
-            #add statement for user black jack
-            if user_score == 21 and len(user_cards) == 2:
-                print("You got a Blackjack!")
-                drawing = False
-            #if computer does not have black jack, offer user additional deals
+        while drawing:
+            #offer additional deals
             if user_score <21 and computer_score != 21:
                 print(f"You have {user_cards}, your opponent has a {computer_cards[0]}")
                 draw = input("Do you want to draw another card?  Type 'y' or 'n': ")
@@ -64,11 +63,16 @@ def black_jack():
                     deal_cards(user_cards)
                     user_score = sum(user_cards)
                     calculate_ace(user_cards)
-                    print(f"Your hand is {user_cards}")
                 else: 
                     drawing = False
             else:
                 drawing = False
+
+        #add statement for user black jack
+        if user_score == 21 and len(user_cards) == 2:
+            playing = False
+            print(f"Your have {user_cards}, Blackjack. You Win!")
+                
         #add statement for computer black jack
         if computer_score == 21 and len(computer_cards) == 2:
             playing = False    
