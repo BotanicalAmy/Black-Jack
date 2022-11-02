@@ -6,9 +6,13 @@ def deal_cards(list):
     cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
     list.append(random.choice(cards))
 
-def calculate_ace(list):
-    list = [x if x != 11 else 1 for x in list]
+#replace the 11 (Ace) with a value of 1 when beneficial
+def calculate_ace(cards):
+     if 11 in cards and sum(cards) > 21:
+        cards.remove(11)
+        cards.append(1)
 
+#display pretty results
 def calculate_results(user, computer):
     result = ["win", "lose", "draw"]
     if computer == user:
@@ -28,6 +32,7 @@ def black_jack():
     playing = True
     print(logo)
 
+    #deal 2 cards to the user and computer
     deal_cards(user_cards)
     deal_cards(user_cards)
     deal_cards(computer_cards)
@@ -36,6 +41,7 @@ def black_jack():
     while playing:
         user_score = sum(user_cards)
         computer_score = sum(computer_cards)
+        #give the computer more cards if their score is less than 16
         while computer_score < 16:
             deal_cards(computer_cards)
             calculate_ace(computer_cards)
@@ -54,6 +60,8 @@ def black_jack():
                 drawing = False
         else:
             playing = False
+            calculate_ace(user_cards)
+            user_score = sum(user_cards)
             print (f" Your final hand was {user_cards}.  Your final score was {user_score}.\n Your opponent's final hand was {computer_cards}.  Your opponents score was {computer_score}. \n You {calculate_results(user_score, computer_score)}.")
 
 while input("Do you want to play a game of Blackjack? Type 'y' or 'n': ") == "y":
