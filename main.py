@@ -8,7 +8,7 @@ def deal_cards(list):
 
 #replace the 11 (Ace) with a value of 1 when beneficial
 def calculate_ace(cards):
-     if 11 in cards and sum(cards) > 21:
+    if 11 in cards and sum(cards) > 21:
         cards.remove(11)
         cards.append(1)
 
@@ -49,13 +49,24 @@ def black_jack():
         
         print(f"You have {user_cards}, your opponent has a {computer_cards[0]}")
         drawing = True
-        while drawing and user_score < 21:
-            draw = input("Do you want to draw another card?  Type 'y' or 'n': ")
-            if draw == 'y':
-                deal_cards(user_cards)
-                user_score = sum(user_cards)
-                calculate_ace(user_cards)
-                print(f"Your hand is {user_cards}")
+        while drawing and user_score <= 21:
+            #add statement for computer black jack
+            if computer_score == 21 and len(computer_cards) == 2:
+                print("Your opponent got a black jack")
+                drawing = False
+            #add statement for user black jack
+            if user_score == 21 and len(user_cards) == 2:
+                print("You got a Black Jack!")
+                playing = False
+            if user_score <21:
+                draw = input("Do you want to draw another card?  Type 'y' or 'n': ")
+                if draw == 'y':
+                    deal_cards(user_cards)
+                    user_score = sum(user_cards)
+                    calculate_ace(user_cards)
+                    print(f"Your hand is {user_cards}")
+                else: 
+                    drawing = False
             else:
                 drawing = False
         else:
